@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Docker & Django static/media build additions
+staticfiles/
+postgres_data/
