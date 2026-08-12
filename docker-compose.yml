@@ -1,4 +1,5 @@
 services:
+
   db:
     image: postgres:15-alpine
     env_file:
@@ -6,7 +7,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   web:
     build:
@@ -28,6 +29,13 @@ services:
 
     depends_on:
       - db
+
+  frontend:
+    build: ./auth-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
