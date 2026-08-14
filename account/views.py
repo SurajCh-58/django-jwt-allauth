@@ -57,14 +57,14 @@ class GoogleLoginView(APIView):
 
         if not email:
             return Response({"message":"Google account email not found."},status=status.HTTP_400_BAD_REQUEST)
-        user=User.objects.filter(email=email).first()
+        user=User.objects.filter(email__iexact=email).first()
 
         if user is None:
             username=email.split("@")[0]
             base_username=username
             counter=1
             while User.objects.filter(username=username).exists():
-                username=f"{username}_{User.objects.count()}"
+                username=f"{base_username}_{counter}"
                 counter+=1
             user=User.objects.create_user(username=username,email=email,)
 
